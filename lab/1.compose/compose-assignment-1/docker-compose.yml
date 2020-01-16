@@ -1,0 +1,31 @@
+version: '3'
+services:
+    drupal:
+      image: drupal
+      ports:
+      - "8080:80"
+      environment: 
+        DRUPAL_DATABASE_HOST: drupal-mysql
+        DRUPAL_DATABASE_PORT: 3306
+        DRUPAL_DATABASE_NAME: drupal
+        DRUPAL_DATABASE_USERNAME: drupal
+        DRUPAL_DATABASE_PASSWORD: drupal
+      volumes:
+        - drupal-modules:/var/www/html/modules
+        - drupal-profiles:/var/www/html/profiles
+        - drupal-sites:/var/www/html/sites
+        - drupal-themes:/var/www/html/themes
+    mysql:
+      image: mysql:5.7
+      container_name: drupal-mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: 'mypasswd'
+        MYSQL_DATABASE: drupal
+        MYSQL_USER: drupal
+        MYSQL_PASSWORD: drupal
+
+volumes:
+      drupal-modules:
+      drupal-profiles:
+      drupal-sites:
+      drupal-themes:
